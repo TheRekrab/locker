@@ -1,0 +1,5 @@
+I am a file that stores confidential information. Please encrypt me using:
+
+locker --encrypt encryptme.txt
+
+You can choose any password you want!
