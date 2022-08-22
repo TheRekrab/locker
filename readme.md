@@ -57,7 +57,7 @@ It is incredibly important that you remember your password! If you forget it, al
 If you enter the correct password, your files will quickly and silently be decrypted. You will have full access to the file. You can then re-encrypt it with any password you choose.
 
 ## Examples:
-With this project, I have included a directory called `examples`. Once you have installed `locker`, `cd` into that directory. There are 2 files, `encryptme.txt`, and `decryptme.txt`. The password to decrypt `decryptme.txt` is `locker`.
+With this project, I have included a directory called `test`. Once you have installed `locker`, `cd` into that directory. There are 2 files, `encryptme.txt`, and `decryptme.txt`. The password to decrypt `decryptme.txt` is `locker`.
 
 ---
 
