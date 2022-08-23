@@ -2,7 +2,7 @@
 import base64
 from sys import argv
 import os
-from cryptography.fernet import Fernet
+from cryptography.fernet import Fernet, InvalidToken
 from getpass import getpass
 
 def to_key(original_key):
@@ -20,12 +20,11 @@ def do_thing(fp, key, mode='e'):
 
     assert mode == 'e' or mode == 'd'
 
-    # I would check if the file exists with an assert statement, but that's not really debugging, it's more like a basic warning.
+    # I would check if the file exists with an assert statement, but that's not debugging, it's more like a basic warning.
     if not os.path.exists(fp):
         print("ERROR: File \"%s\" does not exist." % fp)
         return -1
     elif os.path.isdir(fp):
-        # TODO: Loop over each file in the directory, and use recursion to encrypt each file.
         for file_path in os.scandir(fp):
             do_thing(file_path, key, mode)
         return 0
@@ -40,11 +39,14 @@ def do_thing(fp, key, mode='e'):
     f = Fernet(key)
 
     if (mode == 'e'):
-        fn = f.encrypt
+        new_data = f.encrypt(data)
     else:
-        fn = f.decrypt
+        try:
+            new_data = f.decrypt(data)
+        except InvalidToken:
+            print("ERROR: Incorrect password for file \"%s\"" % fp)
+            return -1
 
-    new_data = fn(data) # This method reduces redundancy
 
     try:
         with open(fp, "wb") as newfile:
